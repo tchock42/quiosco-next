@@ -1,0 +1,73 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {            // codigo para generar la tabla Category | una Categoria tiene muchos productos
+  id  Int   @id   @default(autoincrement())
+  name  String
+  slug  String
+  products    Product[]
+}
+
+// model Product {             // código para generar la tabla Product
+//   id  Int    @id    @default(autoincrement())
+//   name  String
+//   price   Float
+//   image   String
+//   categoryId    Int
+//   category    Category  @relation(fields: [categoryId], references: [id])
+//   orderItems  OrderProducts[]                   // relacion inversa de muchos a muchos
+// }
+
+// model Order {
+//   id            Int         @id   @default(autoincrement())   // autoincremental
+//   name          String
+//   total         Float
+//   date          DateTime    @default(now())             // fecha 
+//   status        Boolean   @default(false)           // comienza en false
+//   orderReadyAt  DateTime?                     // ? significa opcional 
+//   orderProducts OrderProducts[]               // relacion inversa de muchos a muchos
+// }
+
+// model OrderProducts {
+//   id          Int     @id   @default(autoincrement())
+//   orderId     Int
+//   order       Order   @relation(fields: [orderId], references: [id])        // foreign key
+//   productId   Int  
+//   product     Product @relation(fields: [productId], references: [id])    // referencia de la foreign key
+//   quantity    Int
+// }
+model Product {
+  id  Int   @id   @default(autoincrement())
+  name  String
+  price Float
+  image String
+  categoryId  Int
+  category  Category @relation(fields: [categoryId], references: [id])
+  orderItems OrderProducts[]
+}
+
+model Order {
+  id      Int   @id   @default(autoincrement())
+  name    String
+  total   Float
+  date    DateTime  @default(now())
+  status  Boolean   @default(false)
+  orderReadyAt  DateTime?
+  orderProducts OrderProducts[]
+}
+
+model OrderProducts {
+  id      Int   @id   @default(autoincrement())
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
+  productId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+}
