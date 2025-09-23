@@ -1,10 +1,20 @@
 import {prisma} from '@/src/lib/prisma'
 import ProductCard from '@/components/products/ProductCard'
 import Heading from '@/components/ui/Heading'
+import { notFound } from 'next/navigation'
 
 type CategoryProps = {
   category: string
 }
+//obtener los slugs de categorias desde Prisma
+export async function generateStaticParams() {
+  const categories = await prisma.category.findMany({
+    select: { slug: true }
+  });
+
+  return categories.map(({ slug }) => ({ category: slug }));
+}
+
 
 // obtener los productos segun categoria seleccionada
 const getProducts = async (category: string) => {   // se le pasa la categoria seleccionada
@@ -16,6 +26,11 @@ const getProducts = async (category: string) => {   // se le pasa la categoria s
       }
     }
   })
+
+  if (!products.length) {
+    notFound(); // redirige a la página 404
+  }
+
 
   return products;
 }
