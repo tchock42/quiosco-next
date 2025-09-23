@@ -9,6 +9,8 @@ Se usa la configuración Server Components con la carpeta app sirviendo como rou
 - API para la obtención de JSON de la base de datos
 - Prisma
 - PostgreSQL
+- Server actions
+- Zod
 
 ## Getting Started
 
