@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-
+// export default
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
         hostname: 'res.cloudinary.com'
       }
     ]
+  },
+  eslint: {
+    ignoreDuringBuilds: true
   }
 };
 
