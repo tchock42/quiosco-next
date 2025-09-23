@@ -3,6 +3,8 @@ import ProductCard from '@/components/products/ProductCard'
 import Heading from '@/components/ui/Heading'
 import { notFound } from 'next/navigation'
 
+export const dynamic = 'force-static';
+
 type CategoryProps = {
   category: string
 }
