@@ -1,6 +1,6 @@
 import { prisma } from "@/src/lib/prisma";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic'  // permite que sean dinamicos y no se queden cacheados
 
 export async function GET() {
 
